@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/project"
+        android:checked="true"
+        android:title="@string/bottom_navigation_item_project" />
+
+    <item
+        android:id="@+id/overview"
+        android:title="@string/bottom_navigation_item_overview" />
+
+    <item
+        android:id="@+id/overview"
+        android:title="@string/bottom_navigation_item_overview" />
+</menu>

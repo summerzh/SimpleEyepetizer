@@ -1,13 +1,17 @@
 package com.gyt.simplereader.ui.activity
 
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import com.gyt.simplereader.R
+import com.gyt.simplereader.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun getLayoutId(): Int = R.layout.activity_main
+
+    override fun initView() {
     }
+
+    override fun initEvent() {
+    }
+
+
 }
