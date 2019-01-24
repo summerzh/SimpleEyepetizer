@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SimpleReader</string>
+    <string name="bottom_navigation_item_bookstore">发现</string>
+    <string name="bottom_navigation_item_bookshelf">书架</string>
 </resources>

@@ -38,6 +38,4 @@ abstract class BaseActivity : AppCompatActivity(){
         mCompositeDisposable.add(disposable)
     }
 
-
-
 }

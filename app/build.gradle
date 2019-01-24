@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -15,12 +17,17 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", BASE_URL
+            buildConfigField "String", "BASE_IMG_URL", BASE_IMG_URL
+        }
         release {
+            buildConfigField "String", "BASE_URL", BASE_URL
+            buildConfigField "String", "BASE_IMG_URL", BASE_IMG_URL
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 //    kapt {
 //        mapDiagnosticLocations = true
 //    }

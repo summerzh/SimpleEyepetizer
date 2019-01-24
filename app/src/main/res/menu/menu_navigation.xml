@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/project"
+        android:id="@+id/menu_book_discovery"
         android:checked="true"
-        android:title="@string/bottom_navigation_item_project" />
+        android:icon="@drawable/select_booksearch"
+        android:title="@string/bottom_navigation_item_bookstore" />
 
     <item
-        android:id="@+id/overview"
-        android:title="@string/bottom_navigation_item_overview" />
-
-    <item
-        android:id="@+id/overview"
-        android:title="@string/bottom_navigation_item_overview" />
+        android:id="@+id/menu_book_shelf"
+        android:icon="@drawable/select_bookshelf"
+        android:title="@string/bottom_navigation_item_bookshelf" />
 </menu>

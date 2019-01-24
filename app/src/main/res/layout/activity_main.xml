@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.MainActivity">
 
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
     <com.gyt.simplereader.widget.BottomNavigationViewEx
-        android:layout_weight="0"
+        android:layout_alignParentBottom="true"
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_navigation_height"
         android:layout_gravity="bottom"
         android:background="@color/white"
-        android:paddingBottom="@dimen/bottom_navigation_padding_top_bottom"
-        android:paddingTop="@dimen/bottom_navigation_padding_top_bottom"
         app:itemIconTint="@color/selector_bottom_navigation_text_color"
-        app:itemTextAppearanceActive="@style/BottomNavigationTextLarge"
-        app:itemTextAppearanceInactive="@style/BottomNavigationTextSmall"
+        app:itemTextAppearanceActive="@style/BottomNavigationText"
+        app:itemTextAppearanceInactive="@style/BottomNavigationText"
         app:itemTextColor="@color/selector_bottom_navigation_text_color"
         app:menu="@menu/menu_navigation" />
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
