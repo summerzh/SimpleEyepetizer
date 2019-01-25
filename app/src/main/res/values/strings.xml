@@ -2,4 +2,7 @@
     <string name="app_name">SimpleReader</string>
     <string name="bottom_navigation_item_bookstore">发现</string>
     <string name="bottom_navigation_item_bookshelf">书架</string>
+    <string name="failed_to_connect_internet">网络错误\n点击网络重试</string>
+    <string name="something_went_wrong">数据获取失败(ㄒoㄒ)~~</string>
+    <string name="no_results_found">暂时没有数据～～</string>
 </resources>

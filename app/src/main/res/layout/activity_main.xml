@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.MainActivity">
+    tools:context="com.gyt.eyepetizer.ui.activity.MainActivity">
 
     <FrameLayout
         android:id="@+id/fl_container"
@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
     </FrameLayout>
 
-    <com.gyt.simplereader.widget.BottomNavigationViewEx
+    <com.gyt.eyepetizer.widget.BottomNavigationViewEx
         android:layout_alignParentBottom="true"
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

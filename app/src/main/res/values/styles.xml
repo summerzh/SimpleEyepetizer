@@ -12,4 +12,16 @@
         <item name="android:textSize">13sp</item>
     </style>
 
+    <!--多状态布局的样式-->
+    <style name="MultiStateView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="msv_errorView">@layout/error_view</item>
+        <item name="msv_emptyView">@layout/empty_view</item>
+        <item name="msv_loadingView">@layout/loading_view</item>
+        <item name="msv_noNetworkView">@layout/no_network_view</item>
+        <item name="msv_viewState">loading</item>
+        <item name="msv_animateViewChanges">false</item>
+    </style>
+
 </resources>

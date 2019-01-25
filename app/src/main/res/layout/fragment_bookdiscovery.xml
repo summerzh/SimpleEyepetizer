@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
+    <include layout="@layout/view_toolbar" />
 
-    <ImageView
-        android:id="@+id/iv_cover"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
-    <TextView
-        android:id="@+id/tv_title"
+    <com.gyt.eyepetizer.widget.MultiStateView
+        android:id="@+id/mMultiStateView"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="match_parent">
 
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/smartRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srlEnableLoadMore="true">
 
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                tools:listitem="@android:layout/simple_list_item_2" />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.gyt.eyepetizer.widget.MultiStateView>
 </LinearLayout>
