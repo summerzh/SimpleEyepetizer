@@ -1,13 +1,16 @@
 package com.gyt.eyepetizer.ui.activity
 
 import androidx.fragment.app.Fragment
-import com.gyt.simplereader.R
 import com.gyt.eyepetizer.base.BaseActivity
 import com.gyt.eyepetizer.ui.fragment.DailySelectionFragment
-import com.gyt.eyepetizer.ui.fragment.BookShelfFragment
+import com.gyt.eyepetizer.ui.fragment.DiscoveryFragment
+import com.gyt.simplereader.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
+    override fun retryRequest() {
+    }
+
     private var mCurrentFragment: Fragment = Fragment()
     private var mBookDiscoveryFragment: Fragment? = null
     private var mBookShelfFragment: Fragment? = null
@@ -20,9 +23,7 @@ class MainActivity : BaseActivity() {
         bottom_navigation.setIconVisibility(true)
         bottom_navigation.enableShiftingMode(false)
         bottom_navigation.enableItemShiftingMode(false)
-    }
 
-    override fun initEvent() {
         switchFragment(mCurrentPosition)
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -47,7 +48,7 @@ class MainActivity : BaseActivity() {
             }
             1 -> {
                 showHideFragment(mBookShelfFragment
-                        ?: BookShelfFragment.getInstance(), "bookshelffragment")
+                        ?: DiscoveryFragment.getInstance(), "bookshelffragment")
             }
         }
         mCurrentPosition = position

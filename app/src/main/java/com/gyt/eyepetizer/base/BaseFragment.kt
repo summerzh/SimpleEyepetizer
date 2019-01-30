@@ -92,5 +92,4 @@ abstract class BaseFragment : Fragment(){
     abstract fun intView()
 
     abstract fun retryRequest()
-
 }

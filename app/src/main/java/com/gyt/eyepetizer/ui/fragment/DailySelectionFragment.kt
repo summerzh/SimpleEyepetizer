@@ -2,12 +2,17 @@ package com.gyt.eyepetizer.ui.fragment
 
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.GridLayoutManager
-import com.gyt.eyepetizer.base.BaseFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.gyt.eyepetizer.base.BaseMvpFragment
+import com.gyt.eyepetizer.beans.HomeBean
 import com.gyt.eyepetizer.mvp.contract.DailySelectionContract
 import com.gyt.eyepetizer.mvp.presenter.DailySelectionPresenter
-import com.gyt.eyepetizer.ui.adapter.CategoryItemViewBinder
+import com.gyt.eyepetizer.ui.adapter.homeViewBinder.BannerItemViewBinder
+import com.gyt.eyepetizer.ui.adapter.homeViewBinder.DateItemViewBinder
+import com.gyt.eyepetizer.ui.adapter.homeViewBinder.VideoItemViewBinder
+import com.gyt.eyepetizer.utils.getAutoDispose
 import com.gyt.simplereader.R
+import com.uber.autodispose.AutoDisposeConverter
 import kotlinx.android.synthetic.main.fragment_bookdiscovery.*
 import me.drakeet.multitype.MultiTypeAdapter
 
@@ -16,51 +21,74 @@ import me.drakeet.multitype.MultiTypeAdapter
  * @date on 2019/1/21 2:51 PM
  * @describer TODO
  */
-class DailySelectionFragment: BaseFragment(), DailySelectionContract.View{
-
+class DailySelectionFragment : BaseMvpFragment<DailySelectionPresenter, DailySelectionContract.View>(), DailySelectionContract.View {
     private val mAdapter by lazy { MultiTypeAdapter() }
-    private val mPresenter by lazy{ DailySelectionPresenter()}
+    private val mList by lazy { ArrayList<Any>() }
+
+    init {
+        mPresenter = DailySelectionPresenter()
+    }
 
     companion object {
 
         fun getInstance(): Fragment {
-            val bookDiscoveryFragment = DailySelectionFragment()
-            return bookDiscoveryFragment
+            val dailySelectionFragment = DailySelectionFragment()
+            return dailySelectionFragment
         }
     }
+
     override fun getLayoutId(): Int = R.layout.fragment_bookdiscovery
 
     override fun intView() {
-        mPresenter.attachView(this)
-        mAdapter.register(Category::class.java, CategoryItemViewBinder())
+        mPresenter?.attachView(this)
+        mPresenter?.requestData()
 
-        recyclerView.layoutManager = GridLayoutManager(context, SPANCOUNT)
-        recyclerView.itemAnimator = DefaultItemAnimator()
-        recyclerView.adapter = mAdapter
+        mAdapter.register(HomeBean::class.java, BannerItemViewBinder())
+        mAdapter.register(HomeBean.Issue.Item::class.java).to(
+                DateItemViewBinder(),
+                VideoItemViewBinder()
+        ).withClassLinker { _, item ->
+            return@withClassLinker when {
+                item.type == "textHeader" -> DateItemViewBinder::class.java
+                else -> VideoItemViewBinder::class.java
+            }
+        }
 
-        mAdapter.items =
+        recyclerView?.run {
+            layoutManager = LinearLayoutManager(context)
+            itemAnimator = DefaultItemAnimator()
+            adapter = mAdapter
+        }
 
+        mAdapter.items = mList
     }
 
-    override fun showData() {
-        mPresenter.requestData()
+    override fun setBannerData(homeBean: HomeBean) {
+        mList.add(homeBean)
+        mAdapter.notifyDataSetChanged()
     }
 
-    override fun loadMoreData() {
+    override fun setHomeData(itemList: ArrayList<HomeBean.Issue.Item>) {
+        mList.addAll(itemList)
+        mAdapter.notifyDataSetChanged()
     }
 
-    override fun showError() {
+    override fun showError(msg: String, errorCode: Int) {
+
     }
 
     override fun showLoading() {
         mMultiStateView?.showLoading()
     }
 
-    override fun showContent() {
+    override fun hideLoading() {
         mMultiStateView?.showContent()
     }
 
     override fun retryRequest() {
     }
 
+    override fun <T> bindAutoDispose(): AutoDisposeConverter<T> {
+        return getAutoDispose(this)
+    }
 }

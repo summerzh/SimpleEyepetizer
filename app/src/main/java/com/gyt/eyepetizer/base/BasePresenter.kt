@@ -7,7 +7,7 @@ package com.gyt.eyepetizer.base
  */
 open class BasePresenter<V : IBaseView> : IPresenter<V> {
 
-    var mRootView: IBaseView? = null
+    var mRootView: V? = null
         private set
 
     override fun attachView(mRootView: V) {
@@ -17,4 +17,10 @@ open class BasePresenter<V : IBaseView> : IPresenter<V> {
     override fun detachView() {
         this.mRootView = null
     }
+
+    fun checkViewAttach(){
+        if(mRootView == null) throw MvpViewNotAttachException()
+    }
+
+    private class MvpViewNotAttachException : RuntimeException("Please call BasePresenter.attachView() before call BasePresenter.requestData()!")
 }

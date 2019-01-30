@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/title"
+    tools:text="title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/home_item_date_height"
+    android:gravity="center"
+    android:textColor="@android:color/black" />
+
+

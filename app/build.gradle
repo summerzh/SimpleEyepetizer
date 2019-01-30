@@ -28,9 +28,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-//    kapt {
-//        mapDiagnosticLocations = true
-//    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -58,5 +60,10 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-19'
     implementation 'me.drakeet.multitype:multitype:3.4.4'
     implementation 'me.drakeet.multitype:multitype-kotlin:3.4.4'
-    implementation 'com.uber.autodispose:autodispose-android-ktx:1.1.0'
+    implementation 'com.uber.autodispose:autodispose:1.1.0'
+    implementation 'com.uber.autodispose:autodispose-ktx:1.1.0'
+    implementation 'com.uber.autodispose:autodispose-android:1.1.0'
+    implementation 'com.uber.autodispose:autodispose-android-archcomponents:1.1.0'
+
+    implementation 'cn.bingoogolapple:bga-banner:2.2.5@aar'
 }

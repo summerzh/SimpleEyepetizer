@@ -18,7 +18,6 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
         initView()
-        initEvent()
         setOnRetryClickListener()
     }
 
@@ -27,17 +26,10 @@ abstract class BaseActivity : AppCompatActivity() {
         mMultiStateView?.getView(MultiStateView.VIEW_STATE_NO_NETWORK)?.setOnClickListener { retryRequest() }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-    }
 
     abstract fun getLayoutId(): Int
 
     abstract fun initView()
 
-    abstract fun initEvent()
-
     abstract fun retryRequest()
-
 }
