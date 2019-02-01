@@ -3,7 +3,6 @@ package com.gyt.kotlindemo.http
 import com.gyt.eyepetizer.beans.HomeBean
 import io.reactivex.Flowable
 import retrofit2.http.GET
-import retrofit2.http.Query
 import retrofit2.http.Url
 
 /**
@@ -17,8 +16,8 @@ interface HttpApi {
     /**
      * 首页精选
      */
-    @GET("v2/feed?")
-    fun getHomeData(@Query("num") num: Int): Flowable<HomeBean>
+    @GET("v5/index/tab/feed")
+    fun getHomeData(): Flowable<HomeBean>
 
     /**
      * 根据 nextPageUrl 请求数据下一页数据

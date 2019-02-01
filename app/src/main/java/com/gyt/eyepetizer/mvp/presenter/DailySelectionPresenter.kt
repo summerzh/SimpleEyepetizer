@@ -23,41 +23,36 @@ class DailySelectionPresenter : BasePresenter<DailySelectionContract.View>(), Da
         checkViewAttach()
 
         mRootView?.showLoading()
-        mHomeModel.getHomeData(20)
-                .flatMap { homeBean ->
-                    //过滤掉 Banner2(包含广告,等不需要的 Type), 具体查看接口分析
-                    val bannerItemList = homeBean.issueList[0].itemList
-
-                    bannerItemList.filter { item ->
-                        item.type == "banner2" || item.type == "horizontalScrollCard"
-                    }.forEach { item ->
-                        //移除 item
-                        bannerItemList.remove(item)
-                    }
-
-                    bannerItemList.forEach { item->
-                        item.type = "banner"
-                    }
-                    mNewHomeBean = homeBean
-                    mRootView?.apply {
-                        setBannerData(homeBean)
-                    }
-                    mHomeModel.loadMoreData(homeBean.nextPageUrl)
-                }
+        mHomeModel.getHomeData()
                 .compose(RxUtils.ioMainSchedule())
                 .`as`(mRootView!!.bindAutoDispose())
                 .subscribe({ homeBean ->
                     mRootView?.apply {
                         hideLoading()
-                        val newItemList = homeBean.issueList[0].itemList
+                        val newItemList = homeBean.itemList
                         mNextPageUrl = homeBean.nextPageUrl
 
+                        // 移除掉今日社区精选的item
                         newItemList.filter { item ->
-                            item.type == "banner2" || item.type == "horizontalScrollCard"
-                        }.forEach { item ->
-                            newItemList.remove(item)
+                            item.type == "textCard" && item.data.text == "今日社区精选" || item.type == "pictureFollowCard" || item.type == "autoPlayFollowCard"
+                        }.forEach {
+                            newItemList.remove(it)
                         }
 
+                        // 将type为textCard的text显示在下一个item中
+                        val textCardList = newItemList.filter { item ->
+                            item.type == "textCard"
+                        }
+
+                        textCardList.forEach { newItemList[newItemList.indexOf(it) + 1].data.text = it.data.text }
+
+                        newItemList.iterator()?.run {
+                            while (hasNext()) {
+                                if (textCardList.contains(next())) {
+                                    remove()
+                                }
+                            }
+                        }
                         setHomeData(newItemList)
                     }
                 }, { throwable ->
@@ -75,13 +70,26 @@ class DailySelectionPresenter : BasePresenter<DailySelectionContract.View>(), Da
                     .`as`(mRootView!!.bindAutoDispose())
                     .subscribe({ homeBean ->
                         mRootView?.apply {
-                            val newItemList = homeBean.issueList[0].itemList
+                            val newItemList = homeBean.itemList
                             mNextPageUrl = homeBean.nextPageUrl
 
                             newItemList.filter { item ->
-                                item.type == "banner2" || item.type == "horizontalScrollCard"
-                            }.forEach { item ->
-                                newItemList.remove(item)
+                                item.type == "textCard" && item.data.text == "今日社区精选" || item.type == "pictureFollowCard" || item.type == "autoPlayFollowCard"
+                            }.forEach {
+                                newItemList.remove(it)
+                            }
+
+                            val textCardList = newItemList.filter { item ->
+                                item.type == "textCard"
+                            }
+
+                            textCardList.forEach { item -> newItemList[newItemList.indexOf(item) + 1].data.text = item.data.text }
+                            newItemList.iterator()?.run {
+                                while (hasNext()) {
+                                    if (textCardList.contains(next())) {
+                                        remove()
+                                    }
+                                }
                             }
 
                             setHomeData(newItemList)

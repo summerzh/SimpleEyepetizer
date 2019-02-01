@@ -66,4 +66,5 @@ dependencies {
     implementation 'com.uber.autodispose:autodispose-android-archcomponents:1.1.0'
 
     implementation 'cn.bingoogolapple:bga-banner:2.2.5@aar'
+    implementation 'com.github.fondesa:recycler-view-divider:2.0.1'
 }

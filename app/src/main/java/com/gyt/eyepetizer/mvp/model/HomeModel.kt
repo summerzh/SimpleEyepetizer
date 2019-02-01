@@ -11,8 +11,8 @@ import io.reactivex.Flowable
  */
 class HomeModel {
 
-    fun getHomeData(num: Int): Flowable<HomeBean> {
-        return HttpManager.httpService.getHomeData(num)
+    fun getHomeData(): Flowable<HomeBean> {
+        return HttpManager.httpService.getHomeData()
     }
 
     fun loadMoreData(nextUrl: String): Flowable<HomeBean> {

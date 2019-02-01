@@ -3,12 +3,11 @@ package com.gyt.eyepetizer.ui.fragment
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.fondesa.recyclerviewdivider.RecyclerViewDivider
 import com.gyt.eyepetizer.base.BaseMvpFragment
 import com.gyt.eyepetizer.beans.HomeBean
 import com.gyt.eyepetizer.mvp.contract.DailySelectionContract
 import com.gyt.eyepetizer.mvp.presenter.DailySelectionPresenter
-import com.gyt.eyepetizer.ui.adapter.homeViewBinder.BannerItemViewBinder
-import com.gyt.eyepetizer.ui.adapter.homeViewBinder.DateItemViewBinder
 import com.gyt.eyepetizer.ui.adapter.homeViewBinder.VideoItemViewBinder
 import com.gyt.eyepetizer.utils.getAutoDispose
 import com.gyt.simplereader.R
@@ -43,21 +42,18 @@ class DailySelectionFragment : BaseMvpFragment<DailySelectionPresenter, DailySel
         mPresenter?.attachView(this)
         mPresenter?.requestData()
 
-        mAdapter.register(HomeBean::class.java, BannerItemViewBinder())
-        mAdapter.register(HomeBean.Issue.Item::class.java).to(
-                DateItemViewBinder(),
-                VideoItemViewBinder()
-        ).withClassLinker { _, item ->
-            return@withClassLinker when {
-                item.type == "textHeader" -> DateItemViewBinder::class.java
-                else -> VideoItemViewBinder::class.java
-            }
-        }
+        mAdapter.register(HomeBean.Item::class.java, VideoItemViewBinder())
 
         recyclerView?.run {
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
             adapter = mAdapter
+            RecyclerViewDivider.with(context!!)
+                    .size(1)
+                    .inset(context.resources.getDimensionPixelSize(R.dimen.common_space_15), context.resources.getDimensionPixelSize(R.dimen.common_space_15))
+                    .hideLastDivider()
+                    .build()
+                    .addTo(this)
         }
 
         mAdapter.items = mList
@@ -68,7 +64,7 @@ class DailySelectionFragment : BaseMvpFragment<DailySelectionPresenter, DailySel
         mAdapter.notifyDataSetChanged()
     }
 
-    override fun setHomeData(itemList: ArrayList<HomeBean.Issue.Item>) {
+    override fun setHomeData(itemList: ArrayList<HomeBean.Item>) {
         mList.addAll(itemList)
         mAdapter.notifyDataSetChanged()
     }

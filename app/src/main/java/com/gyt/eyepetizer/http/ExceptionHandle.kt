@@ -50,9 +50,9 @@ class ExceptionHandle {
                 errorCode = ErrorStatus.SERVER_ERROR
             } else {//未知错误
                 try {
-                    Logger.e("TAG", "错误: " + e.message)
+                    Logger.e( "错误: " + e.message)
                 } catch (e1: Exception) {
-                    Logger.e("TAG", "未知错误Debug调试 ")
+                    Logger.e("未知错误Debug调试 ")
                 }
 
                 errorMsg = "未知错误，可能抛锚了吧~"

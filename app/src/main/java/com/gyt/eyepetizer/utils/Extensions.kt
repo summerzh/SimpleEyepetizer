@@ -9,9 +9,12 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.gyt.eyepetizer.MyApplication
 import com.gyt.eyepetizer.utils.glide.GlideApp
+import com.gyt.simplereader.R
 import com.uber.autodispose.AutoDispose
 import com.uber.autodispose.AutoDisposeConverter
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -22,11 +25,21 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
  * @describer 扩展函数
  */
 
-fun ImageView.loadUrl(context: Context, url: String, @DrawableRes placeHolder: Int) {
+fun ImageView.loadLargePic(context: Context, url: String, @DrawableRes placeHolder: Int = R.drawable.ic_banner_placeholder) {
     GlideApp.with(context)
             .load(url)
             .placeholder(placeHolder)
             .transition(DrawableTransitionOptions().crossFade())
+            .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+            .into(this)
+}
+
+
+fun ImageView.loadSmallCirclePic(context: Context, url: String) {
+    GlideApp.with(context)
+            .load(url)
+            .transition(DrawableTransitionOptions().crossFade())
+            .apply(RequestOptions.circleCropTransform())
             .into(this)
 }
 

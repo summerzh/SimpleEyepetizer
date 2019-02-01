@@ -3,30 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/common_space_15"
+    android:paddingRight="@dimen/common_space_15">
+
+    <TextView
+        android:id="@+id/mTvDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_space_10"
+        android:textColor="@color/black"
+        android:textSize="@dimen/common_textSize_22"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/mIvCover"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_item_cover_height" />
+        android:layout_height="@dimen/home_item_cover_height"
+        android:layout_marginTop="@dimen/common_space_10"
+        android:scaleType="fitXY" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_item_desc_height"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="@dimen/common_space_10"
         android:paddingBottom="@dimen/common_space_10">
 
         <ImageView
-            tools:src="@mipmap/ic_launcher"
             android:id="@+id/mIvHeadPortrait"
             android:layout_width="@dimen/home_item_headportrait_size"
-            android:layout_height="@dimen/home_item_headportrait_size" />
+            android:layout_height="@dimen/home_item_headportrait_size"
+            tools:src="@mipmap/ic_launcher" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_space_20"
+            android:layout_marginLeft="@dimen/common_space_10"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -34,8 +47,10 @@
                 android:id="@+id/mTvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/black"
-                android:textSize="@dimen/common_textSize_18"
+                android:textSize="@dimen/common_textSize_14"
                 android:textStyle="bold"
                 tools:text="hello" />
 
@@ -43,16 +58,18 @@
                 android:id="@+id/mTvDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/common_gray"
-                android:textSize="@dimen/common_textSize_14"
+                android:textSize="@dimen/common_textSize_12"
                 tools:text="hello" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/mIvShare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_space_20"
+            android:layout_width="@dimen/home_share_img_size"
+            android:layout_height="@dimen/home_share_img_size"
+            android:layout_marginLeft="@dimen/common_space_10"
             tools:src="@mipmap/ic_launcher" />
 
     </LinearLayout>
