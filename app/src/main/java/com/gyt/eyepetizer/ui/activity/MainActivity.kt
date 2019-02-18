@@ -1,18 +1,20 @@
 package com.gyt.eyepetizer.ui.activity
 
+import android.Manifest
 import androidx.fragment.app.Fragment
 import com.gyt.eyepetizer.base.BaseActivity
-import com.gyt.eyepetizer.ui.fragment.DailySelectionFragment
-import com.gyt.eyepetizer.ui.fragment.DiscoveryFragment
+import com.gyt.eyepetizer.ui.fragment.homefragment.DiscoveryFragment
+import com.gyt.eyepetizer.ui.fragment.homefragment.HomeFragment
 import com.gyt.simplereader.R
 import kotlinx.android.synthetic.main.activity_main.*
+import pub.devrel.easypermissions.EasyPermissions
 
 class MainActivity : BaseActivity() {
     override fun retryRequest() {
     }
 
     private var mCurrentFragment: Fragment = Fragment()
-    private var mBookDiscoveryFragment: Fragment? = null
+    private var mHomeFragment: Fragment? = null
     private var mBookShelfFragment: Fragment? = null
     private var mCurrentPosition = 0
     private var mFragmentList = ArrayList<Fragment>()
@@ -38,13 +40,15 @@ class MainActivity : BaseActivity() {
                 else -> false
             }
         }
+
+        checkPermission()
     }
 
     private fun switchFragment(position: Int) {
         when (position) {
             0 -> {
-                showHideFragment(mBookDiscoveryFragment
-                        ?: DailySelectionFragment.getInstance(), "bookdiscoveryfragment")
+                showHideFragment(mHomeFragment
+                        ?: HomeFragment.getInstance(), "homefragment")
             }
             1 -> {
                 showHideFragment(mBookShelfFragment
@@ -64,5 +68,10 @@ class MainActivity : BaseActivity() {
             }
             mTransaction.show(fragment).commitAllowingStateLoss()
         }
+    }
+
+    private fun checkPermission() {
+        val perms = arrayOf(Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        EasyPermissions.requestPermissions(this, "KotlinMvp应用需要以下权限，请允许", 0, *perms)
     }
 }

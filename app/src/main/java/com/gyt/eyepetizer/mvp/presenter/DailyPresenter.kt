@@ -13,7 +13,7 @@ import com.gyt.kotlindemo.http.RxUtils
  * @describer TODO
  */
 
-class DailySelectionPresenter : BasePresenter<DailySelectionContract.View>(), DailySelectionContract.Presenter {
+class DailyPresenter : BasePresenter<DailySelectionContract.View>(), DailySelectionContract.Presenter {
 
     private var mNewHomeBean: HomeBean? = null
     private val mHomeModel: HomeModel by lazy { HomeModel() }
@@ -92,7 +92,7 @@ class DailySelectionPresenter : BasePresenter<DailySelectionContract.View>(), Da
                                 }
                             }
 
-                            setHomeData(newItemList)
+                            setMoreData(newItemList)
                         }
                     }, { throwable ->
                         mRootView?.apply {

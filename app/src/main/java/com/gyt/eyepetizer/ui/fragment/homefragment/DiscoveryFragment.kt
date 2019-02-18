@@ -1,4 +1,4 @@
-package com.gyt.eyepetizer.ui.fragment
+package com.gyt.eyepetizer.ui.fragment.homefragment
 
 import androidx.fragment.app.Fragment
 import com.gyt.eyepetizer.base.BaseMvpFragment

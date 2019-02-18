@@ -7,8 +7,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/view_toolbar" />
-
     <com.gyt.eyepetizer.widget.MultiStateView
         android:id="@+id/mMultiStateView"
         style="@style/MultiStateView"
@@ -19,14 +17,25 @@
             android:id="@+id/mSmartRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srlEnableLoadMore="true">
+            app:srlEnableAutoLoadMore="false"
+            app:srlEnableLoadMore="false">
 
             <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                android:id="@+id/mWaterDropHeader"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:srlClassicsSpinnerStyle="Translate"
+                app:srlDrawableArrowSize="20dp"
+                app:srlDrawableMarginRight="20dp"
+                app:srlDrawableProgressSize="20dp"
+                app:srlEnableLastTime="true"
+                app:srlFinishDuration="500"
+                app:srlTextSizeTime="10dp"
+                app:srlTextSizeTitle="16sp"
+                app:srlTextTimeMarginTop="2dp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/mRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="never"

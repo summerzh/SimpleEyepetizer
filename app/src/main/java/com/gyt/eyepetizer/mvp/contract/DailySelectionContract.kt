@@ -11,9 +11,9 @@ import com.gyt.eyepetizer.beans.HomeBean
  */
 interface DailySelectionContract {
     interface View : IBaseView {
-        fun setBannerData(homeBean: HomeBean)
-
         fun setHomeData(itemList: ArrayList<HomeBean.Item>)
+
+        fun setMoreData(itemList: ArrayList<HomeBean.Item>)
 
         fun showError(msg: String, errorCode: Int)
     }

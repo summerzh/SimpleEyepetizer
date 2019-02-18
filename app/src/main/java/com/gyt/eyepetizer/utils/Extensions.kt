@@ -26,6 +26,7 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
  */
 
 fun ImageView.loadLargePic(context: Context, url: String, @DrawableRes placeHolder: Int = R.drawable.ic_banner_placeholder) {
+
     GlideApp.with(context)
             .load(url)
             .placeholder(placeHolder)
