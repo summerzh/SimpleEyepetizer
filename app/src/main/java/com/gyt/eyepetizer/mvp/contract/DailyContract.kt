@@ -9,7 +9,7 @@ import com.gyt.eyepetizer.beans.HomeBean
  * @date on 2019/1/25 5:49 PM
  * @describer TODO
  */
-interface DailySelectionContract {
+interface DailyContract {
     interface View : IBaseView {
         fun setHomeData(itemList: ArrayList<HomeBean.Item>)
 

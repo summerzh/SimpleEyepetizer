@@ -69,5 +69,6 @@ dependencies {
     implementation 'cn.bingoogolapple:bga-banner:2.2.5@aar'
     implementation 'com.github.fondesa:recycler-view-divider:2.0.1'
     implementation 'pub.devrel:easypermissions:2.0.1'
-    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    implementation 'com.github.rubensousa:gravitysnaphelper:2.0'
 }

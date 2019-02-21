@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fondesa.recyclerviewdivider.RecyclerViewDivider
 import com.gyt.eyepetizer.base.BaseMvpFragment
 import com.gyt.eyepetizer.beans.HomeBean
-import com.gyt.eyepetizer.mvp.contract.DailySelectionContract
+import com.gyt.eyepetizer.mvp.contract.DailyContract
 import com.gyt.eyepetizer.mvp.presenter.DailyPresenter
-import com.gyt.eyepetizer.ui.adapter.homeViewBinder.VideoItemViewBinder
+import com.gyt.eyepetizer.ui.adapter.homeViewBinder.FollowCardViewBinder
 import com.gyt.eyepetizer.utils.getAutoDispose
 import com.gyt.simplereader.R
 import com.uber.autodispose.AutoDisposeConverter
@@ -21,7 +21,7 @@ import me.drakeet.multitype.MultiTypeAdapter
  * @date on 2019/1/21 2:51 PM
  * @describer TODO
  */
-class DailyFragment : BaseMvpFragment<DailyPresenter, DailySelectionContract.View>(), DailySelectionContract.View {
+class DailyFragment : BaseMvpFragment<DailyPresenter, DailyContract.View>(), DailyContract.View {
     private val mAdapter by lazy { MultiTypeAdapter() }
     private val mList by lazy { ArrayList<Any>() }
     private var mRefresh = false
@@ -46,7 +46,7 @@ class DailyFragment : BaseMvpFragment<DailyPresenter, DailySelectionContract.Vie
         mPresenter?.attachView(this)
         mPresenter?.requestData()
 
-        mAdapter.register(HomeBean.Item::class.java, VideoItemViewBinder())
+        mAdapter.register(HomeBean.Item::class.java, FollowCardViewBinder())
 
         mRecyclerView?.run {
             layoutManager = LinearLayoutManager(context)

@@ -9,13 +9,13 @@ import io.reactivex.Flowable
  * @date on 2019/1/29 11:19 AM
  * @describer TODO
  */
-class HomeModel {
+class DailyModel {
 
-    fun getHomeData(): Flowable<HomeBean> {
-        return HttpManager.httpService.getHomeData()
+    fun getDailyData(): Flowable<HomeBean> {
+        return HttpManager.httpService.getDailyData()
     }
 
     fun loadMoreData(nextUrl: String): Flowable<HomeBean> {
-        return HttpManager.httpService.getMoreHomeData(nextUrl)
+        return HttpManager.httpService.getMoreDailyData(nextUrl)
     }
 }

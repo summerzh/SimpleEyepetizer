@@ -2,8 +2,8 @@ package com.gyt.eyepetizer.mvp.presenter
 
 import com.gyt.eyepetizer.base.BasePresenter
 import com.gyt.eyepetizer.beans.HomeBean
-import com.gyt.eyepetizer.mvp.contract.DailySelectionContract
-import com.gyt.eyepetizer.mvp.model.HomeModel
+import com.gyt.eyepetizer.mvp.contract.DailyContract
+import com.gyt.eyepetizer.mvp.model.DailyModel
 import com.gyt.kotlindemo.http.ExceptionHandle
 import com.gyt.kotlindemo.http.RxUtils
 
@@ -13,17 +13,17 @@ import com.gyt.kotlindemo.http.RxUtils
  * @describer TODO
  */
 
-class DailyPresenter : BasePresenter<DailySelectionContract.View>(), DailySelectionContract.Presenter {
+class DailyPresenter : BasePresenter<DailyContract.View>(), DailyContract.Presenter {
 
     private var mNewHomeBean: HomeBean? = null
-    private val mHomeModel: HomeModel by lazy { HomeModel() }
+    private val mHomeModel: DailyModel by lazy { DailyModel() }
     private var mNextPageUrl: String? = null
 
     override fun requestData() {
         checkViewAttach()
 
         mRootView?.showLoading()
-        mHomeModel.getHomeData()
+        mHomeModel.getDailyData()
                 .compose(RxUtils.ioMainSchedule())
                 .`as`(mRootView!!.bindAutoDispose())
                 .subscribe({ homeBean ->

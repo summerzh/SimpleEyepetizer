@@ -9,4 +9,5 @@
     <color name="bottom_navigation_item_gray_color">#656565</color>
 
     <color name="common_gray">#FF333333</color>
+    <color name="divider_line">#ece7e7e7</color>
 </resources>

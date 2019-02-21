@@ -2,6 +2,7 @@ package com.gyt.eyepetizer.mvp.contract
 
 import com.gyt.eyepetizer.base.IBaseView
 import com.gyt.eyepetizer.base.IPresenter
+import com.gyt.eyepetizer.beans.HomeBean
 
 /**
  * @author gyt
@@ -11,8 +12,11 @@ import com.gyt.eyepetizer.base.IPresenter
 interface DiscoveryContract{
     interface View : IBaseView{
 
+        fun setData(itemList: ArrayList<HomeBean.Item>)
+
+        fun showError(msg: String, errorCode: Int)
     }
     interface Presenter : IPresenter<View>{
-
+        fun requestData()
     }
 }

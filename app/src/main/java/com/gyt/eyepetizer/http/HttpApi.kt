@@ -1,8 +1,10 @@
 package com.gyt.kotlindemo.http
 
 import com.gyt.eyepetizer.beans.HomeBean
+import com.gyt.eyepetizer.beans.RecommandBean
 import io.reactivex.Flowable
 import retrofit2.http.GET
+import retrofit2.http.Query
 import retrofit2.http.Url
 
 /**
@@ -14,16 +16,29 @@ interface HttpApi {
 
 
     /**
-     * 首页精选
+     * 首页-精选
      */
     @GET("v5/index/tab/feed")
-    fun getHomeData(): Flowable<HomeBean>
+    fun getDailyData(): Flowable<HomeBean>
 
     /**
      * 根据 nextPageUrl 请求数据下一页数据
      */
     @GET
-    fun getMoreHomeData(@Url url: String): Flowable<HomeBean>
+    fun getMoreDailyData(@Url url: String): Flowable<HomeBean>
+
+    /**
+     * 首页-发现
+     */
+    @GET("v5/index/tab/discovery")
+    fun discovery(): Flowable<HomeBean>
+
+    /**
+     * 首页-推荐
+     */
+    @GET("v5/index/tab/allRec")
+    fun allRec(@Query("page") page: Int): Flowable<RecommandBean>
+
 //
 //    /**
 //     * 根据item id获取相关视频
