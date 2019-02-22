@@ -20,6 +20,8 @@ import me.drakeet.multitype.MultiTypeAdapter
  * @describer TODO
  */
 class HorizontalScrollCardViewBinder : ItemViewBinder<HomeBean.Item, HorizontalScrollCardViewBinder.ViewHolder>() {
+    private var mRecyclerView: RecyclerView? = null
+
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
         val itemView = inflater.inflate(R.layout.item_horizontal_scroll_card, parent, false)
         return ViewHolder(itemView)
@@ -28,28 +30,24 @@ class HorizontalScrollCardViewBinder : ItemViewBinder<HomeBean.Item, HorizontalS
     override fun onBindViewHolder(viewHolder: ViewHolder, item: HomeBean.Item) {
         val adapter = MultiTypeAdapter()
         adapter.register(HomeBean.Item.Data.DataItem::class.java, BannerItemViewBinder())
-        viewHolder.itemView.mRecyclerView?.run {
-            this.adapter = adapter
-            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-            itemAnimator = DefaultItemAnimator()
-//            LinearSnapHelper().attachToRecyclerView(this)
-//            RecyclerViewDivider.with(this.context)
-//                    .size(30)
-//                    .color(this.context.resources.getColor(R.color.white))
-//                    .inset(30, 30)
-//                    .asSpace()
-//                    .build()
-//                    .addTo(this)
-
-            SpaceItemDecoration.with(this.context)
-                    .space(7)
-                    .edge(30)
-                    .layoutManager(SpaceItemDecoration.LINEARLAYOUT)
-                    .build()
-                    .addTo(this)
-            GallerySnapHelper().attachToRecyclerView(this)
-        }
         adapter.items = item.data.itemList
+
+        // viewHolder.itemView.mRecyclerView获得的对象是不同的，导致刷新时ItemDecoration间距越来越大
+        // 所以确保recyclerView对象时唯一的
+        if (this.mRecyclerView == null) {
+            this.mRecyclerView = viewHolder.itemView.mRecyclerView?.apply {
+                this.adapter = adapter
+                layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+                itemAnimator = DefaultItemAnimator()
+                SpaceItemDecoration.with(this.context)
+                        .space(this.context.resources.getDimensionPixelSize(R.dimen.common_divider_space_2))
+                        .edge(this.context.resources.getDimensionPixelSize(R.dimen.common_edge_space_15))
+                        .layoutManager(SpaceItemDecoration.LINEARLAYOUT)
+                        .build()
+                        .addTo(this)
+                GallerySnapHelper().attachToRecyclerView(this)
+            }
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

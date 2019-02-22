@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/common_space_15"
-    android:paddingRight="@dimen/common_space_15">
+    android:paddingLeft="@dimen/common_edge_space_15"
+    android:paddingRight="@dimen/common_edge_space_15">
 
     <TextView
         android:id="@+id/mTvDate"

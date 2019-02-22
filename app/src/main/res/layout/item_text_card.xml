@@ -1,9 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/title"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/home_item_date_height"
-    android:gravity="center"
-    android:textColor="@android:color/black"
-    tools:text="title" />
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/mLlHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_edge_space_15"
+        android:layout_marginTop="@dimen/common_edge_space_15"
+        android:layout_marginRight="@dimen/common_edge_space_15"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mTvHeaderTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_textSize_20"
+            android:textStyle="bold"
+            tools:text="title" />
+
+        <ImageView
+            android:id="@+id/mIVHeaderArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_arrow_right_goto" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/mRlFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_edge_space_15"
+        android:layout_marginTop="@dimen/common_edge_space_15"
+        android:layout_marginRight="@dimen/common_edge_space_15"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mTvFooterTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/mIvArrow"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_textSize_12"
+            android:textStyle="bold"
+            tools:text="footer" />
+
+        <ImageView
+            android:id="@+id/mIvArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_arrow_right_goto" />
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -3,14 +3,11 @@ package com.gyt.eyepetizer.ui.fragment.homefragment
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fondesa.recyclerviewdivider.RecyclerViewDivider
 import com.gyt.eyepetizer.base.BaseMvpFragment
 import com.gyt.eyepetizer.beans.HomeBean
 import com.gyt.eyepetizer.mvp.contract.DiscoveryContract
 import com.gyt.eyepetizer.mvp.presenter.DiscoveryPresenter
-import com.gyt.eyepetizer.ui.adapter.homeViewBinder.FollowCardViewBinder
-import com.gyt.eyepetizer.ui.adapter.homeViewBinder.HorizontalScrollCardViewBinder
-import com.gyt.eyepetizer.ui.adapter.homeViewBinder.TextCardViewBinder
+import com.gyt.eyepetizer.ui.adapter.homeViewBinder.*
 import com.gyt.eyepetizer.utils.getAutoDispose
 import com.gyt.simplereader.R
 import com.uber.autodispose.AutoDisposeConverter
@@ -48,13 +45,20 @@ class DiscoveryFragment : BaseMvpFragment<DiscoveryPresenter, DiscoveryContract.
         mAdapter.register(HomeBean.Item::class.java).to(
                 TextCardViewBinder(),
                 FollowCardViewBinder(),
-                HorizontalScrollCardViewBinder()
+                HorizontalScrollCardViewBinder(),
+                BriefCardViewBinder(),
+                VideoSmallCardViewBinder(),
+                SquareCardCollectionViewBinder(),
+                UnknownViewBinder()
         ).withClassLinker { _, data ->
             when (data.type) {
                 "textCard" -> TextCardViewBinder::class.java
                 "followCard" -> FollowCardViewBinder::class.java
                 "horizontalScrollCard" -> HorizontalScrollCardViewBinder::class.java
-                else -> TextCardViewBinder::class.java
+                "briefCard" -> BriefCardViewBinder::class.java
+                "videoSmallCard" -> VideoSmallCardViewBinder::class.java
+                "squareCardCollection" -> SquareCardCollectionViewBinder::class.java
+                else -> UnknownViewBinder::class.java
             }
         }
 
@@ -65,14 +69,14 @@ class DiscoveryFragment : BaseMvpFragment<DiscoveryPresenter, DiscoveryContract.
         }
 
 
-        context?.let {
-            RecyclerViewDivider.with(it)
-                    .size(1)
-                    .inset(it.resources.getDimensionPixelSize(R.dimen.common_space_15), it.resources.getDimensionPixelSize(R.dimen.common_space_15))
-                    .hideLastDivider()
-                    .build()
-                    .addTo(mRecyclerView)
-        }
+//        context?.let {
+//            RecyclerViewDivider.with(it)
+//                    .size(1)
+//                    .inset(it.resources.getDimensionPixelSize(R.dimen.common_space_15), it.resources.getDimensionPixelSize(R.dimen.common_space_15))
+//                    .hideLastDivider()
+//                    .build()
+//                    .addTo(mRecyclerView)
+//        }
         mAdapter.items = mList
     }
 

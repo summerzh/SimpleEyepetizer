@@ -9,6 +9,7 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
@@ -25,13 +26,14 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
  * @describer 扩展函数
  */
 
-fun ImageView.loadLargePic(context: Context, url: String, @DrawableRes placeHolder: Int = R.drawable.ic_banner_placeholder) {
-
+fun ImageView.loadRoundCornerPic(context: Context, url: String, @DrawableRes placeHolder: Int = R.drawable.ic_banner_placeholder) {
     GlideApp.with(context)
             .load(url)
+            .error(placeHolder)
             .placeholder(placeHolder)
             .transition(DrawableTransitionOptions().crossFade())
             .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .into(this)
 }
 
@@ -41,6 +43,19 @@ fun ImageView.loadSmallCirclePic(context: Context, url: String) {
             .load(url)
             .transition(DrawableTransitionOptions().crossFade())
             .apply(RequestOptions.circleCropTransform())
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .into(this)
+}
+
+fun ImageView.loadRoundCornerPic(context: Context, url: String, width: Int, height: Int, @DrawableRes placeHolder: Int = R.drawable.ic_banner_placeholder) {
+    GlideApp.with(context)
+            .load(url)
+            .placeholder(placeHolder)
+            .error(placeHolder)
+            .transition(DrawableTransitionOptions().crossFade())
+            .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+            .override(width, height)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .into(this)
 }
 
@@ -68,4 +83,45 @@ fun <T> Activity.getAutoDispose(context: AppCompatActivity): AutoDisposeConverte
 
 fun <T> Fragment.getAutoDispose(context: Fragment): AutoDisposeConverter<T> {
     return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(context, Lifecycle.Event.ON_DESTROY))
+}
+
+fun getDisplayWidth(context: Context): Int {
+    return context.resources.displayMetrics.widthPixels
+}
+
+fun getDisplayHeight(context: Context): Int {
+    return context.resources.displayMetrics.heightPixels
+}
+
+fun secondToTime(time: Int): String {
+    var timeStr: String? = null
+    var hour = 0
+    var minute = 0
+    var second = 0
+    if (time <= 0)
+        return "00:00"
+    else {
+        minute = time / 60
+        if (minute < 60) {
+            second = time % 60
+            timeStr = unitFormat(minute) + ":" + unitFormat(second)
+        } else {
+            hour = minute / 60
+            if (hour > 99)
+                return "99:59:59"
+            minute %= 60
+            second = time - hour * 3600 - minute * 60
+            timeStr = unitFormat(hour) + ":" + unitFormat(minute) + ":" + unitFormat(second)
+        }
+    }
+    return timeStr
+}
+
+private fun unitFormat(i: Int): String {
+    var retStr: String? = null
+    retStr = if (i in 0..9)
+        "0" + Integer.toString(i)
+    else
+        "" + i
+    return retStr
 }

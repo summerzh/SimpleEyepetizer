@@ -22,6 +22,7 @@ class SpaceItemDecoration private constructor(private val space: Int,
         const val LINEARLAYOUT = 0
         const val GRIDLAYOUT = 1
 
+        @JvmStatic
         fun with(context: Context): Builder = Builder(context)
     }
 

@@ -1,12 +1,13 @@
 package com.gyt.eyepetizer.ui.adapter.homeViewBinder
 
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gyt.eyepetizer.beans.HomeBean
 import com.gyt.simplereader.R
-import kotlinx.android.synthetic.main.item_home_date.view.*
+import kotlinx.android.synthetic.main.item_text_card.view.*
 import me.drakeet.multitype.ItemViewBinder
 
 /**
@@ -21,9 +22,25 @@ class TextCardViewBinder : ItemViewBinder<HomeBean.Item, TextCardViewBinder.View
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, item: HomeBean.Item) {
-        viewHolder.itemView.title.text = item.data.text
-    }
+        viewHolder.itemView?.apply {
+            item.data?.apply {
+                when (type) {
+                    "header5" -> {
+                        mTvHeaderTitle.text = text
+                        mRlFooter.visibility = View.GONE
+                        mLlHeader.visibility = View.VISIBLE
 
+                        mIVHeaderArrow.visibility = if (TextUtils.isEmpty(actionUrl)) View.GONE else View.GONE
+                    }
+                    "footer2" -> {
+                        mTvFooterTitle.text = text
+                        mRlFooter.visibility = View.VISIBLE
+                        mLlHeader.visibility = View.GONE
+                    }
+                }
+            }
+        }
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 

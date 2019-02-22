@@ -57,7 +57,7 @@ class DailyFragment : BaseMvpFragment<DailyPresenter, DailyContract.View>(), Dai
         context?.let {
             RecyclerViewDivider.with(it)
                     .size(1)
-                    .inset(it.resources.getDimensionPixelSize(R.dimen.common_space_15), it.resources.getDimensionPixelSize(R.dimen.common_space_15))
+                    .inset(it.resources.getDimensionPixelSize(R.dimen.common_edge_space_15), it.resources.getDimensionPixelSize(R.dimen.common_edge_space_15))
                     .hideLastDivider()
                     .build()
                     .addTo(mRecyclerView)

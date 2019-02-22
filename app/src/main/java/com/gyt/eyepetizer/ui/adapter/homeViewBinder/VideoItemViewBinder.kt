@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gyt.eyepetizer.beans.HomeBean
-import com.gyt.eyepetizer.utils.loadLargePic
+import com.gyt.eyepetizer.utils.loadRoundCornerPic
 import com.gyt.eyepetizer.utils.loadSmallCirclePic
 import com.gyt.simplereader.R
 import kotlinx.android.synthetic.main.item_home_video.view.*
@@ -26,7 +26,7 @@ class VideoItemViewBinder : ItemViewBinder<HomeBean.Item, VideoItemViewBinder.Vi
     override fun onBindViewHolder(viewHolder: ViewHolder, item: HomeBean.Item) {
         viewHolder.itemView.run {
             item?.run {
-                mIvCover.loadLargePic(context, data.content.data.cover.feed)
+                mIvCover.loadRoundCornerPic(context, data.content.data.cover.feed)
                 mIvHeadPortrait.loadSmallCirclePic(context, data.header.icon)
                 mTvTitle.text = data.content.data.title
                 mTvDesc.text = data.header.title

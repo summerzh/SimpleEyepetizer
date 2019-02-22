@@ -13,26 +13,48 @@ import androidx.recyclerview.widget.*
  */
 class GallerySnapHelper : SnapHelper() {
 
-
     private var mHorizontalHelper: OrientationHelper? = null
     private var mRecyclerView: RecyclerView? = null
 
 
     @Throws(IllegalStateException::class)
     override fun attachToRecyclerView(@Nullable recyclerView: RecyclerView?) {
-        mRecyclerView = recyclerView
+        if (recyclerView != null) {
+            recyclerView.onFlingListener = null
+            mRecyclerView = recyclerView
+        }
         super.attachToRecyclerView(recyclerView)
     }
 
+    /**
+     * 计算滑动的距离
+     */
     override fun calculateDistanceToFinalSnap(layoutManager: RecyclerView.LayoutManager, targetView: View): IntArray? {
         val out = IntArray(2)
-        if (layoutManager!!.canScrollHorizontally()) {
-            out[0] = distanceToStart(targetView, this!!.getHorizontalHelper(layoutManager)!!)
+        if (layoutManager.canScrollHorizontally()) {
+            out[0] = distanceToCenter(layoutManager, targetView,
+                    this!!.getHorizontalHelper(layoutManager)!!)
         } else {
             out[0] = 0
         }
         return out
     }
+
+    /**
+     * 计算snapview滑动的中间时的距离
+     */
+    private fun distanceToCenter(layoutManager: RecyclerView.LayoutManager,
+                                 targetView: View, helper: OrientationHelper): Int {
+        val childCenter = helper.getDecoratedStart(targetView) + helper.getDecoratedMeasurement(targetView) / 2
+        val containerCenter: Int
+        if (layoutManager.clipToPadding) {
+            containerCenter = helper.startAfterPadding + helper.totalSpace / 2
+        } else {
+            containerCenter = helper.end / 2
+        }
+        return childCenter - containerCenter
+    }
+
 
     private fun distanceToStart(targetView: View, helper: OrientationHelper): Int {
         return helper.getDecoratedStart(targetView) - helper.startAfterPadding

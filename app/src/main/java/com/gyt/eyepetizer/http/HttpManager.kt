@@ -1,8 +1,8 @@
 package com.gyt.kotlindemo.http
 
+import com.gyt.eyepetizer.http.LoggingInterceptor
 import com.gyt.simplereader.BuildConfig
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -28,11 +28,9 @@ object HttpManager {
     }
 
     private fun getOkHttpClient(): OkHttpClient {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         return OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor) //日志,所有的请求响应度看到
+                .addInterceptor(LoggingInterceptor()) //日志,所有的请求响应度看到
                 .connectTimeout(60L, TimeUnit.SECONDS)
                 .readTimeout(60L, TimeUnit.SECONDS)
                 .writeTimeout(60L, TimeUnit.SECONDS)

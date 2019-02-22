@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gyt.eyepetizer.beans.HomeBean
 import com.gyt.eyepetizer.utils.DisplayUtils
-import com.gyt.eyepetizer.utils.loadLargePic
+import com.gyt.eyepetizer.utils.loadRoundCornerPic
 import com.gyt.simplereader.R
 import kotlinx.android.synthetic.main.item_home_banner.view.*
 import me.drakeet.multitype.ItemViewBinder
@@ -24,8 +24,11 @@ class BannerItemViewBinder : ItemViewBinder<HomeBean.Item.Data.DataItem, BannerI
 
     override fun onBindViewHolder(viewHolder: ViewHolder, banItem: HomeBean.Item.Data.DataItem) {
         viewHolder.itemView?.apply {
-            mImageView.loadLargePic(context, banItem.data.image)
-            mImageView.layoutParams.width = DisplayUtils.getDisplayWidth(context) - 75
+            val edge = this.context.resources.getDimension(R.dimen.common_edge_space_15)
+            val space = this.context.resources.getDimension(R.dimen.common_divider_space_2)
+            val width = DisplayUtils.getDisplayWidth(context) - (space + edge) * 2
+            val height = width * 0.6
+            mImageView.loadRoundCornerPic(context, banItem.data.image, width.toInt(), height.toInt())
         }
     }
 
